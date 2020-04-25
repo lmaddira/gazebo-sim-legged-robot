@@ -1,0 +1,56 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<launch>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+
+    <!-- We resume the logic in empty_world.launch -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    </include>
+    <group ns="/mtn_kid"> 
+            <!--robot model -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find mtn_kid)/urdf/mtn_kid.xacro'" />
+        <arg name="x" default="0"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0.205"/>
+
+        <!--Spawn the robot model -->
+        <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+            args="-urdf -param robot_description -model mtn_kid -x $(arg x) -y $(arg y) -z $(arg z)" />
+        <!-- Load controllers -->
+        <rosparam command="load" file="$(find mtn_kid)/config/joints.yaml" />
+
+        <node name="controller_spawner" pkg="controller_manager" type="spawner"
+                respawn="false" output="screen" ns="/mtn_kid"
+                args="--namespace=/mtn_kid
+                joint_state_controller
+                joint1_position_controller
+                joint2_position_controller
+                joint3_position_controller
+                joint4_position_controller
+                joint5_position_controller
+                joint6_position_controller
+                joint7_position_controller
+                joint8_position_controller
+                joint9_position_controller
+                joint10_position_controller
+                joint11_position_controller
+                joint12_position_controller
+                --timeout 60">
+        </node> 
+        <node name = "robot_state_publisher" pkg = "robot_state_publisher" type = "robot_state_publisher"
+                respawn="false" output="screen">
+            <remap from="/joint_states" to="/mtn_kid/joint_states">
+        </node>
+        <!-- rqt -->
+        <!--node name= "rqt_reconfigure" pkg="rqt_reconfigure" type = "rqt_reconfigure"/>
+        <node name= "rqt_publisher" pkg="rqt_publisher" type = "rqt_publisher"/-->
+    </group>           
+</launch>

@@ -1,0 +1,54 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Position Controllers ---------------------------------------
+joint1_position_controller:
+  type: position_controllers/JointPositionController
+  joint: base_link__leg11
+  pid: {p: 2000.0, i: 100, d: 500.0}
+joint2_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg11__leg12
+  pid: {p: 1000.0, i: 50, d: 700.0}
+joint3_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg12__leg13
+  pid: {p: 700.0, i: 100, d: 50.0}
+joint4_position_controller:
+  type: position_controllers/JointPositionController
+  joint: base_link__leg21
+  pid: {p: 1000.0, i: 50, d: 700.0}
+joint5_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg21__leg22
+  pid: {p: 2000.0, i: 100, d: 500.0}
+joint6_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg22__leg23
+  pid: {p: 1000.0, i: 50, d: 700.0}
+joint7_position_controller:
+  type: position_controllers/JointPositionController
+  joint: base_link__leg31
+  pid: {p: 2000.0, i: 100, d: 500.0}
+joint8_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg31__leg32
+  pid: {p: 1000.0, i: 50, d: 700.0}
+joint9_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg32__leg33
+  pid: {p: 700.0, i: 100, d: 50.0}
+joint10_position_controller:
+  type: position_controllers/JointPositionController
+  joint: base_link__leg41
+  pid: {p: 1000.0, i: 50, d: 700.0}
+joint11_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg41__leg42
+  pid: {p: 2000.0, i: 100, d: 500.0}
+joint12_position_controller:
+  type: position_controllers/JointPositionController
+  joint: leg42__leg43
+  pid: {p: 1000.0, i: 50, d: 700.0}

@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<robot name="kid" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<!--Include xacro:macro -->
+    <xacro:include filename="$(find mtn_kid)/urdf/links_joints.xacro"/>
+    <!--Constants of the robot-->
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="mass_box" value="1" /> <!-- mass of main box__approx for now -->
+    <xacro:property name="mass_link" value="0.1" />
+    <xacro:property name="length" value="0.3" /> <!-- length and width  dimensions of box -->
+    <xacro:property name="width" value="0.15" /> <!-- length and width  dimensions of box -->
+    <xacro:property name="thickness" value="0.05" /> <!-- length and width  dimensions of box -->
+    <xacro:property name="link_wid" value="0.02" /> <!-- Link 1 -->
+    <xacro:property name="height1" value="0.02" /> <!-- Link 1 -->
+    <xacro:property name="height2" value="0.095" /> <!-- Link 2 -->
+    <xacro:property name="height3" value="0.09" /> <!-- Link 3 -->
+
+    <m_link_box name="base_link" origin_xyz="0 0 ${height1+height2+height3+thickness/2}" origin_rpy="0 0 0" 
+                size="${length} ${width} ${thickness}" mass="${mass_box}" 
+                ixx="${mass_box / 12.0 * (width*width + thickness*thickness)}" 
+                iyy="${mass_box / 12.0 * (length*length + thickness*thickness)}" 
+                izz="${mass_box / 12.0 * (width*width + length*length)}"/>
+    <!--base_link_leg1 joints haven't yet added feet -->
+    <m_joint name="base_link__leg11" type="revolute" 
+                axis_xyz="1 0 0" origin_rpy="0 0 0" 
+                origin_xyz="${length/2} ${width/2} ${height1+height2+height3}" 
+                parent="base_link" child="leg11"/>
+
+    <m_link_box name="leg11" origin_xyz="0 0 ${-height1/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height1}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg11__leg12" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height1}" 
+                parent="leg11" child="leg12"/>
+
+    <m_link_box name="leg12" origin_xyz="0 0 ${-height2/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height2}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg12__leg13" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height2}" 
+                parent="leg12" child="leg13"/>
+
+    <m_link_box name="leg13" origin_xyz="0 0 ${-height3/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height3}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <!--base_link_leg2 joints haven't yet added feet -->
+    <m_joint name="base_link__leg21" type="revolute" 
+                axis_xyz="1 0 0" origin_rpy="0 0 0" 
+                origin_xyz="${-length/2} ${width/2} ${height1+height2+height3}" 
+                parent="base_link" child="leg21"/>
+
+    <m_link_box name="leg21" origin_xyz="0 0 ${-height1/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height1}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg21__leg22" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height1}" 
+                parent="leg21" child="leg22"/>
+
+    <m_link_box name="leg22" origin_xyz="0 0 ${-height2/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height2}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg22__leg23" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height2}" 
+                parent="leg22" child="leg23"/>
+
+    <m_link_box name="leg23" origin_xyz="0 0 ${-height3/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height3}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+        <!--base_link_leg3 joints haven't yet added feet -->
+    <m_joint name="base_link__leg31" type="revolute" 
+                axis_xyz="1 0 0" origin_rpy="0 0 0" 
+                origin_xyz="${-length/2} ${-width/2} ${height1+height2+height3}" 
+                parent="base_link" child="leg31"/>
+
+    <m_link_box name="leg31" origin_xyz="0 0 ${-height1/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height1}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg31__leg32" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height1}" 
+                parent="leg31" child="leg32"/>
+
+    <m_link_box name="leg32" origin_xyz="0 0 ${-height2/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height2}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg32__leg33" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height2}" 
+                parent="leg32" child="leg33"/>
+
+    <m_link_box name="leg33" origin_xyz="0 0 ${-height3/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height3}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+    
+            <!--base_link_leg4 joints haven't yet added feet -->
+    <m_joint name="base_link__leg41" type="revolute" 
+                axis_xyz="1 0 0" origin_rpy="0 0 0" 
+                origin_xyz="${length/2} ${-width/2} ${height1+height2+height3}" 
+                parent="base_link" child="leg41"/>
+
+    <m_link_box name="leg41" origin_xyz="0 0 ${-height1/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height1}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height1*height1)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg41__leg42" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height1}" 
+                parent="leg41" child="leg42"/>
+
+    <m_link_box name="leg42" origin_xyz="0 0 ${-height2/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height2}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height2*height2)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+
+    <m_joint name="leg42__leg43" type="revolute" 
+                axis_xyz="0 1 0" origin_rpy="0 0 0" 
+                origin_xyz="0 0 ${-height2}" 
+                parent="leg42" child="leg43"/>
+
+    <m_link_box name="leg43" origin_xyz="0 0 ${-height3/2}" origin_rpy="0 0 0"
+                size="${link_wid} ${link_wid} ${height3}" mass="${mass_link}" 
+                ixx="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                iyy="${mass_link / 12.0 * (link_wid*link_wid + height3*height3)}" 
+                izz="${mass_link / 12.0 * (link_wid*link_wid + link_wid*link_wid)}"/>
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        </plugin>
+    </gazebo>
+
+</robot>

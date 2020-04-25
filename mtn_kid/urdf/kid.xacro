@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="kid" xmlns:xacro="http://www.ros.org/wiki/xacro">
+        <!--Include xacro:macro -->
+        <xacro:include filename="$(find mtn_kid)/urdf/links_joints.xacro"/>
+
+        <!--Constants of the robot-->
+        <xacro:property name="PI" value="3.1415926535897931"/>
+        <xacro:property name="mass" value="1" /> <!-- mass of main box__approx for now -->
+        <xacro:property name="length" value="0.3" /> <!-- length and width  dimensions of box -->
+        <xacro:property name="width" value="0.15" /> <!-- length and width  dimensions of box -->
+        <xacro:property name="thickness" value="0.05" /> <!-- length and width  dimensions of box -->
+        <xacro:property name="height1" value="0.02" /> <!-- Link 1 -->
+        <xacro:property name="height2" value="0.095" /> <!-- Link 2 -->
+        <xacro:property name="height3" value="0.09" /> <!-- Link 3 -->
+        <!--base_link -->
+        <m_link_box name="base_link" origin_xyz="0 0 0.4" origin_rpy="0 0 0" size="0.4 0.2 0.05"
+                        mass="10" ixx="${10*((0.2*0.2)+(0.05*0.05))/12}" iyy="${10*((0.4*0.4)+(0.05*0.05))/12}" izz="${10*((0.2*0.2)+(0.4*0.4))/12}"/>
+        <!--base_link_leg1 joints and 2 leg links haven't yet added feet -->
+        <m_joint name="base_link_leg11" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="0.2 0.1 0.4" 
+                parent="base_link" child="leg11"/>
+        <m_link_cylinder name="leg11" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+        <m_joint name="leg11_leg12" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="0 0 -0.2" 
+                parent="leg11" child="leg12"/>
+        <m_link_cylinder name="leg12" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+
+        <!--base_link_leg2 joints and 2 leg links haven't yet added feet -->
+        <m_joint name="base_link_leg21" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="-0.2 0.1 0.4" 
+                parent="base_link" child="leg21"/>
+        <m_link_cylinder name="leg21" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+        <m_joint name="leg21_leg22" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="0 0 -0.2" 
+                parent="leg21" child="leg22"/>
+        <m_link_cylinder name="leg22" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+
+        <!--base_link_leg3 joints and 2 leg links haven't yet added feet -->
+        <m_joint name="base_link_leg31" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="0.2 -0.1 0.4" 
+                parent="base_link" child="leg31"/>
+        <m_link_cylinder name="leg31" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+        <m_joint name="leg31_leg32" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="0 0 -0.2" 
+                parent="leg31" child="leg32"/>
+        <m_link_cylinder name="leg32" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+    
+        <!--base_link_leg4 joints and 2 leg links haven't yet added feet -->
+        <m_joint name="base_link_leg41" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="-0.2 -0.1 0.4" 
+                parent="base_link" child="leg41"/>
+        <m_link_cylinder name="leg41" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+        <m_joint name="leg41_leg42" type="revolute" axis_xyz="0 1 0" 
+                origin_rpy="0 0 0" origin_xyz="0 0 -0.2" 
+                parent="leg41" child="leg42"/>
+        <m_link_cylinder name="leg42" origin_xyz="0 0 -0.1" origin_rpy="0 0 0 " 
+                        radius="0.02" length="0.2"
+                        mass="1" ixx="${1*(0.2*0.2)/3}" iyy="0" izz="${1*(0.2*0.2)/3}"/>
+
+    
+</robot>
